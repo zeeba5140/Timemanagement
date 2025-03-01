@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as FileSystem from 'expo-file-system';
+
 import * as Sharing from 'expo-sharing';
 
 const HistoryScreen = () => {
@@ -18,15 +18,7 @@ const HistoryScreen = () => {
     if (storedHistory) setHistory(JSON.parse(storedHistory));
   };
 
-  const exportHistory = async () => {
-    if (history.length === 0) {
-      Alert.alert('No History', 'There is no timer history to export.');
-      return;
-    }
-    const fileUri = FileSystem.documentDirectory + 'timer_history.json';
-    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(history), { encoding: FileSystem.EncodingType.UTF8 });
-    await Sharing.shareAsync(fileUri);
-  };
+ 
 
   return (
     <ScrollView style={styles.container}>
