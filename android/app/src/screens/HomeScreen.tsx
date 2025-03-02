@@ -1,9 +1,8 @@
-// Timer Management App with Light/Dark Mode Toggle
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, Modal, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProgressBar from 'react-native-progress/Bar';
+import { useNavigation } from '@react-navigation/native';
 
 interface Timer {
   id: string;
@@ -18,6 +17,7 @@ interface Timer {
 const categories = ['Workout', 'Study', 'Break'];
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const [timers, setTimers] = useState<Timer[]>([]);
   const [name, setName] = useState('');
   const [duration, setDuration] = useState('');
@@ -118,6 +118,7 @@ const HomeScreen = () => {
   return (
     <ScrollView style={theme === 'light' ? styles.lightContainer : styles.darkContainer}>
       <Button title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`} onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
+      <Button title="Go to History" onPress={() => navigation.navigate('History', { completedTimers: timers.filter(timer => timer.status === 'Completed') })} />
       <TextInput placeholder="Timer Name" value={name} onChangeText={setName} style={styles.input} />
       <TextInput placeholder="Duration (seconds)" keyboardType="numeric" value={duration} onChangeText={setDuration} style={styles.input} />
       {categories.map((cat) => (
@@ -136,6 +137,9 @@ const HomeScreen = () => {
     </ScrollView>
   );
 };
+
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -210,4 +214,4 @@ const styles = StyleSheet.create({
     timerCard: { marginBottom: 10, padding: 10, backgroundColor: '#eee', borderRadius: 10 },
   });
 
-export default HomeScreen;
+export default HomeScreen

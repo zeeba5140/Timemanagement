@@ -1,14 +1,12 @@
-// AppNavigator with Navigation and History Screen
-
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './android/app/src/screens/HomeScreen';
 import HistoryScreen from './android/app/src/screens/HistoryScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
-const AppNavigator = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -19,5 +17,4 @@ const AppNavigator = () => {
   );
 };
 
-export default AppNavigator;
-
+export default App;
